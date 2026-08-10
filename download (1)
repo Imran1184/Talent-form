@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the Roster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="page">
+  <aside class="intro">
+    <div class="intro-inner">
+      <span class="eyebrow">Talent intake &middot; 001</span>
+      <h1>Join the<br>roster.</h1>
+      <p class="lede">Tell us who you are, what you do, and what it costs to bring you on. Ten fields, two minutes, one entry in the ledger.</p>
+      <ol class="ledger-list">
+        <li><span>Who you are</span></li>
+        <li><span>What you do &amp; charge</span></li>
+        <li><span>Proof of work</span></li>
+      </ol>
+    </div>
+  </aside>
+
+  <main class="form-panel">
+    <div class="form-wrap">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data" novalidate>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" required>
+          </div>
+          <div class="field">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="phone_number">Phone number</label>
+            <input type="tel" id="phone_number" name="phone_number" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+              <option value="" disabled selected>Select country</option>
+              {% for c in countries %}
+              <option value="{{ c }}">{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="skill_or_position">Skill or position</label>
+            <input type="text" id="skill_or_position" name="skill_or_position" placeholder="e.g. Backend Engineer" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="hourly_rate">Hourly rate (USD)</label>
+            <input type="number" min="0" step="0.01" id="hourly_rate" name="hourly_rate" placeholder="e.g. 25" required>
+          </div>
+          <div class="field">
+            <label for="available_in_days">Available in (days)</label>
+            <input type="number" min="0" step="1" id="available_in_days" name="available_in_days" placeholder="e.g. 7" required>
+          </div>
+        </div>
+
+        <div class="field single">
+          <label for="referral_email">Referral email <span class="optional">(optional)</span></label>
+          <input type="email" id="referral_email" name="referral_email" placeholder="Who referred you?">
+        </div>
+
+        <div class="field single">
+          <label for="resume">Profile / resume</label>
+          <div class="file-drop">
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            <span class="file-drop-label" id="file-drop-label">Attach PDF or Word document</span>
+          </div>
+        </div>
+
+        <div class="field single consent-field">
+          <label class="consent-label">
+            <input type="checkbox" id="consent" name="consent" value="yes" required>
+            <span>I consent to my information and resume being shared with verified recruiters and hiring firms for the purpose of job matching.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit entry</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script>
+  const fileInput = document.getElementById('resume');
+  const fileLabel = document.getElementById('file-drop-label');
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      fileLabel.textContent = fileInput.files[0].name;
+      fileLabel.classList.add('has-file');
+    } else {
+      fileLabel.textContent = 'Attach PDF or Word document';
+      fileLabel.classList.remove('has-file');
+    }
+  });
+</script>
+</body>
+</html>

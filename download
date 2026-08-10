@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entry received</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+  .confirm-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    text-align: center;
+    padding: 2rem;
+  }
+  .confirm-box { max-width: 420px; }
+  .confirm-box .eyebrow { display: block; margin-bottom: 1.25rem; }
+  .confirm-box h1 {
+    font-family: var(--display);
+    color: var(--paper);
+    font-size: 2.6rem;
+    margin: 0 0 1rem;
+  }
+  .confirm-box p { color: #c7c9d1; line-height: 1.6; margin: 0 0 2rem; }
+  .confirm-box a {
+    display: inline-block;
+    color: var(--ink);
+    background: var(--amber-soft);
+    padding: 0.8rem 1.6rem;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+</style>
+</head>
+<body>
+<div class="confirm-page">
+  <div class="confirm-box">
+    <span class="eyebrow">Entry logged</span>
+    <h1>You're on the roster.</h1>
+    <p>Your details and resume have been recorded. We'll be in touch if there's a fit for the rate and role you shared.</p>
+    <a href="{{ url_for('index') }}">Submit another entry</a>
+  </div>
+</div>
+</body>
+</html>
