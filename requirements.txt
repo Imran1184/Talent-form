@@ -1,6 +1,1 @@
-submissions.db
-uploads/*
-!uploads/.gitkeep
-__pycache__/
-*.pyc
-.env
+Flask==3.0.3 gunicorn==22.0.0
